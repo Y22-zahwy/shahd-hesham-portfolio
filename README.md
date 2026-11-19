@@ -52,9 +52,10 @@ src/
 
 ## Deployment
 
-- **Live site:** https://shahd-hesham-portfolio.netlify.app
-- **Hosting:** Netlify (free plan), connected to this GitHub repository.
-- **Auto-deploy:** every push to `main` triggers a new production build on Netlify (`npm run build` with the official Next.js runtime; settings in `netlify.toml`).
-- **Access:** production is public; Deploy Previews stay behind Netlify team login.
+- **Live site:** https://shahd-hesham-portfolio.vercel.app
+- **Hosting:** Vercel (free Hobby plan), connected to this GitHub repository. Framework preset: Next.js, production branch `main`.
+- **Auto-deploy:** every push to `main` builds and publishes a new production version automatically. Pull requests and other branches get preview deployments.
 
-To update the site: edit the code (for content, `src/data/portfolio.ts`), commit, and `git push` — Netlify deploys it automatically within a few minutes.
+To update the site: edit the code (for content, `src/data/portfolio.ts`), commit, and `git push` — Vercel deploys it within a minute or two.
+
+> `netlify.toml` is left over from the earlier Netlify setup and is ignored by Vercel.
