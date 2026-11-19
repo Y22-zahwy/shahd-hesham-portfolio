@@ -49,3 +49,11 @@ src/
 - Respects `prefers-reduced-motion` (Motion's `reducedMotion="user"` plus a CSS fallback).
 - Custom cursor and mouse parallax only run on fine pointers with hover; touch devices get the native experience.
 - Skip link, keyboard-operable menu, filters, service rows and preview modal (Esc to close, ← → to step through projects).
+
+## Deployment
+
+- **Live site:** https://shahd-hesham-portfolio.netlify.app
+- **Hosting:** Netlify (free plan), connected to this GitHub repository.
+- **Auto-deploy:** every push to `main` triggers a new production build on Netlify (`npm run build`, settings in `netlify.toml`).
+
+To update the site: edit the code (for content, `src/data/portfolio.ts`), commit, and `git push` — Netlify deploys it automatically within a few minutes.
