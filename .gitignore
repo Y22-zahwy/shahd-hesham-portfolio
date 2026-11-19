@@ -40,8 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# netlify
-.netlify
 
 # local editor / agent settings
 .claude/settings.local.json

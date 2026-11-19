@@ -57,5 +57,3 @@ src/
 - **Auto-deploy:** every push to `main` builds and publishes a new production version automatically. Pull requests and other branches get preview deployments.
 
 To update the site: edit the code (for content, `src/data/portfolio.ts`), commit, and `git push` — Vercel deploys it within a minute or two.
-
-> `netlify.toml` is left over from the earlier Netlify setup and is ignored by Vercel.
