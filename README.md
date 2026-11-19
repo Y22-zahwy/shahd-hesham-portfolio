@@ -54,6 +54,7 @@ src/
 
 - **Live site:** https://shahd-hesham-portfolio.netlify.app
 - **Hosting:** Netlify (free plan), connected to this GitHub repository.
-- **Auto-deploy:** every push to `main` triggers a new production build on Netlify (`npm run build`, settings in `netlify.toml`).
+- **Auto-deploy:** every push to `main` triggers a new production build on Netlify (`npm run build` with the official Next.js runtime; settings in `netlify.toml`).
+- **Access:** production is public; Deploy Previews stay behind Netlify team login.
 
 To update the site: edit the code (for content, `src/data/portfolio.ts`), commit, and `git push` — Netlify deploys it automatically within a few minutes.
