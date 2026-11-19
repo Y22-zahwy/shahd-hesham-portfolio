@@ -9,6 +9,7 @@ import { Magnetic } from "./ui/Magnetic";
 import { Marquee } from "./ui/Marquee";
 import { Reveal, SplitReveal } from "./ui/Reveal";
 import { profile } from "@/data/portfolio";
+import { HotGroup } from "./ui/useTouchHot";
 
 function CopyEmail() {
   const [copied, setCopied] = useState(false);
@@ -92,7 +93,7 @@ export function Contact() {
 
           <Reveal delay={0.1} className="space-y-4 lg:col-span-7">
             {/* Email */}
-            <div className="group rounded-[28px] border border-cocoa/15 bg-paper/80 p-6 backdrop-blur transition-colors hover:border-cocoa/40 md:p-8">
+            <HotGroup className="rounded-[28px] border border-cocoa/15 bg-paper/80 p-6 backdrop-blur transition-colors hot:border-cocoa/40 md:p-8">
               <p className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-cocoa-soft">
                 <Mail className="size-3.5" aria-hidden /> Email
               </p>
@@ -114,12 +115,13 @@ export function Contact() {
                 </Magnetic>
                 <CopyEmail />
               </div>
-            </div>
+            </HotGroup>
 
             {/* Phone */}
-            <a
+            <HotGroup
+              as="a"
               href={profile.phoneHref}
-              className="group flex items-center justify-between gap-4 rounded-[28px] border border-cocoa/15 bg-paper/80 p-6 backdrop-blur transition-colors hover:border-cocoa/40 hover:bg-blush/40 md:p-8"
+              className="flex items-center justify-between gap-4 rounded-[28px] border border-cocoa/15 bg-paper/80 p-6 backdrop-blur transition-colors hot:border-cocoa/40 hot:bg-blush/40 md:p-8"
             >
               <span>
                 <span className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-cocoa-soft">
@@ -129,10 +131,10 @@ export function Contact() {
                   {profile.phoneDisplay}
                 </span>
               </span>
-              <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-peach text-cocoa transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110">
+              <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-peach text-cocoa transition-transform duration-500 group-hot:-rotate-12 group-hot:scale-110">
                 <Phone className="size-5" aria-hidden />
               </span>
-            </a>
+            </HotGroup>
           </Reveal>
         </div>
       </div>

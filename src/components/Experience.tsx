@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { SectionLabel } from "./SectionLabel";
 import { Sparkle } from "./ui/Decor";
 import { SplitReveal } from "./ui/Reveal";
+import { HotGroup } from "./ui/useTouchHot";
 import { experience } from "@/data/portfolio";
 
 export function Experience() {
@@ -62,7 +63,7 @@ export function Experience() {
                 <Sparkle className="size-2.5 md:size-3" />
               </motion.span>
 
-              <div className="group rounded-[28px] border border-ivory/10 bg-ivory/[0.03] p-7 transition-colors duration-500 hover:border-ivory/25 hover:bg-ivory/[0.06] md:p-10">
+              <HotGroup className="rounded-[28px] border border-ivory/10 bg-ivory/[0.03] p-7 transition-colors duration-500 hot:border-ivory/25 hot:bg-ivory/[0.06] md:p-10">
                 <div className="flex flex-wrap items-center gap-3 text-sm">
                   <span className="rounded-full border border-ivory/20 px-3 py-1 text-blush">{job.period}</span>
                   {job.current && (
@@ -79,12 +80,12 @@ export function Experience() {
                 <ul className="mt-6 space-y-3">
                   {job.points.map((p) => (
                     <li key={p} className="flex gap-3 text-ivory/85">
-                      <span aria-hidden className="mt-2.5 h-px w-5 shrink-0 bg-peach transition-all duration-500 group-hover:w-8" />
+                      <span aria-hidden className="mt-2.5 h-px w-5 shrink-0 bg-peach transition-all duration-500 group-hot:w-8" />
                       {p}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </HotGroup>
               <span className="sr-only">Position {i + 1} of {experience.length}</span>
             </motion.li>
           ))}

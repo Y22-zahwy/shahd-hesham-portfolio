@@ -6,12 +6,14 @@ import {
   useMotionValue,
   useReducedMotion,
   useScroll,
+  useAnimationFrame,
   useSpring,
   useTransform,
   type MotionValue,
 } from "motion/react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useIsTouch } from "./ui/useTouchHot";
 import { useIntroDone } from "./Providers";
 import { BlobScribble, Pin, Sparkle, WaveLines } from "./ui/Decor";
 import { Magnetic } from "./ui/Magnetic";
@@ -51,6 +53,7 @@ function CollageCard({
         animate={play ? { opacity: 1, y: 0, rotate: item.rot, scale: 1 } : undefined}
         transition={{ delay: 0.5 + i * 0.15, duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
         whileHover={{ rotate: 0, scale: 1.04, transition: { duration: 0.5 } }}
+        whileTap={{ rotate: 0, scale: 1.06, transition: { duration: 0.4 } }}
         className="relative rounded-[4px] bg-paper p-2 pb-8 shadow-[0_30px_60px_-25px_rgba(69,48,44,0.45)] md:p-3 md:pb-10"
       >
         <Pin className="absolute -top-6 left-1/2 z-10 h-10 w-7 -translate-x-1/2" />
@@ -83,6 +86,30 @@ export function Hero() {
   const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const decoA = useLayer(mx, my, -30);
   const decoB = useLayer(mx, my, 40);
+
+  // Phones have no mouse: the collage drifts on its own, and follows the
+  // phone's tilt where the browser exposes it without a permission prompt.
+  const touch = useIsTouch();
+  const tilt = useRef<{ x: number; y: number } | null>(null);
+  useEffect(() => {
+    if (!touch || reduce) return;
+    const onTilt = (e: DeviceOrientationEvent) => {
+      if (e.gamma == null || e.beta == null) return;
+      tilt.current = {
+        x: Math.max(-0.5, Math.min(0.5, e.gamma / 40)),
+        y: Math.max(-0.5, Math.min(0.5, (e.beta - 45) / 50)),
+      };
+    };
+    window.addEventListener("deviceorientation", onTilt);
+    return () => window.removeEventListener("deviceorientation", onTilt);
+  }, [touch, reduce]);
+  useAnimationFrame((t) => {
+    if (!touch || reduce) return;
+    const driftX = Math.sin(t / 2600) * 0.32;
+    const driftY = Math.cos(t / 3400) * 0.26;
+    rawX.set(tilt.current ? tilt.current.x * 0.8 + driftX * 0.4 : driftX);
+    rawY.set(tilt.current ? tilt.current.y * 0.8 + driftY * 0.4 : driftY);
+  });
 
   const onMove = (e: React.PointerEvent) => {
     if (reduce || e.pointerType !== "mouse") return;

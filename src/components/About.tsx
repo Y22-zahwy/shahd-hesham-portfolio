@@ -7,6 +7,7 @@ import { SectionLabel } from "./SectionLabel";
 import { Sparkle, WaveLines } from "./ui/Decor";
 import { Highlight, Reveal, SplitReveal } from "./ui/Reveal";
 import { profile } from "@/data/portfolio";
+import { HotGroup } from "./ui/useTouchHot";
 
 const facts = [
   { big: "1+", unit: "year", text: "in content creation, social media marketing & account management" },
@@ -81,8 +82,8 @@ export function About() {
 
             {/* Education */}
             <Reveal delay={0.15} className="mt-14 md:ml-[12%]">
-              <div className="group relative overflow-hidden rounded-[28px] border border-cocoa/15 bg-paper p-7 md:p-9">
-                <div className="absolute inset-y-0 left-0 w-1.5 bg-rose transition-all duration-700 ease-out-expo group-hover:w-full group-hover:opacity-10" />
+              <HotGroup className="relative overflow-hidden rounded-[28px] border border-cocoa/15 bg-paper p-7 md:p-9">
+                <div className="absolute inset-y-0 left-0 w-1.5 bg-rose transition-all duration-700 ease-out-expo group-hot:w-full group-hot:opacity-10" />
                 <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-start gap-4">
                     <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-blush text-cocoa">
@@ -101,7 +102,7 @@ export function About() {
                     <span className="font-display text-6xl italic text-rose-deep [font-variant-numeric:lining-nums]">{profile.education.gpa}</span>
                   </div>
                 </div>
-              </div>
+              </HotGroup>
             </Reveal>
           </div>
         </div>
@@ -110,12 +111,14 @@ export function About() {
         <ul className="mt-20 grid gap-px overflow-hidden rounded-[28px] border border-cocoa/10 bg-cocoa/10 md:mt-28 md:grid-cols-3">
           {facts.map((f, i) => (
             <li key={f.unit} className="bg-ivory">
-              <Reveal delay={i * 0.1} className="group h-full p-8 transition-colors duration-500 hover:bg-paper md:p-10">
+              <Reveal delay={i * 0.1} className="h-full">
+                <HotGroup className="h-full p-8 transition-colors duration-500 hot:bg-paper md:p-10">
                 <p className="flex items-baseline gap-3">
-                  <span className="font-display text-7xl text-cocoa transition-colors group-hover:text-rose-deep md:text-8xl">{f.big}</span>
+                  <span className="font-display text-7xl text-cocoa transition-colors group-hot:text-rose-deep md:text-8xl">{f.big}</span>
                   <span className="font-serif text-2xl italic text-cocoa-soft">{f.unit}</span>
                 </p>
                 <p className="mt-4 max-w-xs text-cocoa-soft">{f.text}</p>
+                </HotGroup>
               </Reveal>
             </li>
           ))}

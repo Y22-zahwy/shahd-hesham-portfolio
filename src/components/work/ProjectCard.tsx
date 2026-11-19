@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { useRef } from "react";
 import { FileText } from "lucide-react";
 import { Pin } from "../ui/Decor";
+import { useTouchHot } from "../ui/useTouchHot";
 import { ViewProjectLink } from "./ViewProjectLink";
 import { categories, type Project } from "@/data/portfolio";
 
@@ -11,9 +13,9 @@ function StrategyCover({ project }: { project: Project }) {
   return (
     <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-blush/50">
       {/* Stacked "document" sheets behind the pinned logo */}
-      <span className="absolute h-[64%] w-[62%] translate-x-6 translate-y-5 rotate-6 rounded-md bg-paper/70 shadow-sm transition-transform duration-700 ease-out-expo group-hover:translate-x-10 group-hover:rotate-[10deg]" />
-      <span className="absolute h-[64%] w-[62%] translate-x-3 translate-y-2 rotate-2 rounded-md bg-paper/90 shadow-sm transition-transform duration-700 ease-out-expo group-hover:translate-x-5 group-hover:rotate-[5deg]" />
-      <div className="relative flex h-[64%] w-[62%] -rotate-2 flex-col rounded-md bg-paper p-4 shadow-[0_24px_40px_-20px_rgba(69,48,44,0.45)] transition-transform duration-700 ease-out-expo group-hover:-rotate-4 group-hover:scale-[1.03]">
+      <span className="absolute h-[64%] w-[62%] translate-x-6 translate-y-5 rotate-6 rounded-md bg-paper/70 shadow-sm transition-transform duration-700 ease-out-expo group-hot:translate-x-10 group-hot:rotate-[10deg]" />
+      <span className="absolute h-[64%] w-[62%] translate-x-3 translate-y-2 rotate-2 rounded-md bg-paper/90 shadow-sm transition-transform duration-700 ease-out-expo group-hot:translate-x-5 group-hot:rotate-[5deg]" />
+      <div className="relative flex h-[64%] w-[62%] -rotate-2 flex-col rounded-md bg-paper p-4 shadow-[0_24px_40px_-20px_rgba(69,48,44,0.45)] transition-transform duration-700 ease-out-expo group-hot:-rotate-4 group-hot:scale-[1.03]">
         <Pin className="absolute -top-7 left-1/2 h-11 w-8 -translate-x-1/2" />
         <div className="flex flex-1 items-center justify-center overflow-hidden rounded-sm" style={{ background: project.tone }}>
           <Image
@@ -48,7 +50,7 @@ function IdeasCover({ project }: { project: Project }) {
         fill
         sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw"
         quality={90}
-        className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.06]"
+        className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hot:scale-[1.06]"
       />
       {second && (
         <Image
@@ -58,7 +60,7 @@ function IdeasCover({ project }: { project: Project }) {
           fill
           sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 92vw"
           quality={90}
-          className="object-cover opacity-0 transition-[opacity,transform] duration-700 ease-out-expo [clip-path:circle(0%_at_50%_100%)] group-hover:opacity-100 group-hover:[clip-path:circle(150%_at_50%_100%)] scale-105 group-hover:scale-100"
+          className="object-cover opacity-0 transition-[opacity,transform] duration-700 ease-out-expo [clip-path:circle(0%_at_50%_100%)] group-hot:opacity-100 group-hot:[clip-path:circle(150%_at_50%_100%)] scale-105 group-hot:scale-100"
           style={{ transitionProperty: "opacity, transform, clip-path" }}
         />
       )}
@@ -85,8 +87,12 @@ export function ProjectCard({
   onPreview: (p: Project) => void;
 }) {
   const cat = categories.find((c) => c.id === project.category)!;
+  const ref = useRef<HTMLElement>(null);
+  const hot = useTouchHot(ref);
   return (
     <motion.article
+      ref={ref}
+      {...hot}
       layout
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
@@ -99,7 +105,7 @@ export function ProjectCard({
         type="button"
         onClick={() => onPreview(project)}
         data-cursor="Preview"
-        className="block w-full overflow-hidden rounded-[22px] text-left shadow-[0_1px_0_rgba(69,48,44,0.06)] transition-shadow duration-500 group-hover:shadow-[0_30px_60px_-30px_rgba(69,48,44,0.45)]"
+        className="block w-full overflow-hidden rounded-[22px] text-left shadow-[0_1px_0_rgba(69,48,44,0.06)] transition-shadow duration-500 group-hot:shadow-[0_30px_60px_-30px_rgba(69,48,44,0.45)]"
         aria-label={`Preview ${project.brand} — ${cat.label}`}
       >
         {project.category === "strategy" ? <StrategyCover project={project} /> : <IdeasCover project={project} />}

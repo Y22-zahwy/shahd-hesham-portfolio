@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { useRef } from "react";
+import { useTouchHot } from "../ui/useTouchHot";
 import type { Artwork } from "@/data/portfolio";
 
 /** Artwork that unveils with a clip-path wipe and settles from a slight zoom. */
@@ -18,9 +20,13 @@ export function MaskImage({
   className?: string;
   rounded?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const hot = useTouchHot(ref);
   return (
     <motion.div
-      className={`group/img relative overflow-hidden bg-blush/40 ${rounded} ${className}`}
+      ref={ref}
+      {...hot}
+      className={`group relative overflow-hidden bg-blush/40 ${rounded} ${className}`}
       style={{ aspectRatio: `${art.width} / ${art.height}` }}
       initial={{ clipPath: "inset(100% 0% 0% 0% round 18px)" }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0% round 18px)" }}
@@ -41,7 +47,7 @@ export function MaskImage({
           height={art.height}
           sizes={sizes}
           quality={90}
-          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out-expo group-hover/img:scale-[1.05]"
+          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out-expo group-hot:scale-[1.05]"
         />
       </motion.div>
     </motion.div>

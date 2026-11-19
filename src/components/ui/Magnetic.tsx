@@ -37,6 +37,8 @@ export function Magnetic({
       onPointerMove={onMove}
       onPointerLeave={reset}
       style={{ x: sx, y: sy }}
+      whileTap={{ scale: 0.94 }}
+      transition={{ type: "spring", stiffness: 400, damping: 20 }}
       className={`inline-block ${className ?? ""}`}
     >
       {children}

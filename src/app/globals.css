@@ -120,3 +120,28 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * "hot" = hovered with a mouse OR, on touch screens, scrolled into the middle of
+ * the viewport (see useTouchHot). Lets phones play the same hover animations.
+ */
+@custom-variant group-hot {
+  &:is(:where(.group)[data-hot] *) {
+    @slot;
+  }
+  @media (hover: hover) {
+    &:is(:where(.group):hover *) {
+      @slot;
+    }
+  }
+}
+@custom-variant hot {
+  &[data-hot] {
+    @slot;
+  }
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
